@@ -1,0 +1,103 @@
+---
+// src/pages/[username].astro
+import { db } from '../db/index';
+import { users, links } from '../db/schema';
+import { eq } from 'drizzle-orm';
+
+const { username } = Astro.params;
+
+// 1. Fetch the user profile from the database
+const userResult = await db.select().from(users).where(eq(users.username, username!.toLowerCase()));
+const profile = userResult[0];
+
+// 2. Return a clean 404 response if the username hasn't been claimed yet
+if (!profile) {
+  return new Response('Profile not found. Log in to /dashboard and save your profile first!', { status: 404 });
+}
+
+// 3. Fetch the user's active links
+const userLinks = await db.select().from(links).where(eq(links.userId, profile.id));
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Dynamic SEO Title & Description based on the Creator's Profile -->
+    <title>{profile.displayName} (@{profile.username}) | EverythingTogether</title>
+    <meta name="description" content={profile.bio || `Check out ${profile.displayName}'s links, videos, and social updates on EverythingTogether.`} />
+    
+    <!-- Open Graph / Social Previews (When shared on WhatsApp/Telegram/Twitter) -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={`${profile.displayName} (@{profile.username})`} />
+    <meta property="og:description" content={profile.bio || `Explore ${profile.displayName}'s official links.`} />
+    {profile.avatarUrl && <meta property="og:image" content={profile.avatarUrl} />}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={`${profile.displayName} (@{profile.username})`} />
+    <meta name="twitter:description" content={profile.bio || `Explore ${profile.displayName}'s links.`} />
+    {profile.avatarUrl && <meta name="twitter:image" content={profile.avatarUrl} />}
+  </head>
+  <body class="min-h-screen p-8 font-sans flex flex-col items-center pt-16" style={`background-color: ${profile.themeBackground || '#e6e9e3'}`}>
+    
+    <div class="max-w-md w-full flex flex-col items-center">
+      <!-- Profile Header -->
+      <div class="bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] w-full text-center mb-8">
+        {profile.avatarUrl && (
+          <img 
+            src={profile.avatarUrl} 
+            alt={profile.displayName} 
+            class="w-24 h-24 object-cover border-4 border-black mx-auto mb-4 bg-yellow-200 shadow-[4px_4px_0_0_#000]"
+          />
+        )}
+        <h1 class="text-3xl font-black uppercase mb-2">{profile.displayName}</h1>
+        <p class="font-bold text-gray-700 bg-yellow-200 border-2 border-black inline-block px-3 py-1">@{profile.username}</p>
+        {profile.bio && <p class="mt-4 font-medium border-t-4 border-black pt-4">{profile.bio}</p>}
+      </div>
+
+      <!-- Links List -->
+      <div class="w-full flex flex-col gap-4">
+        {userLinks.map((link) => (
+          <a 
+            href={link.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            data-link-id={link.id}
+            class="trackable-link block w-full bg-cyan-200 border-4 border-black text-center p-4 font-black uppercase text-xl shadow-[6px_6px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none hover:bg-yellow-400 transition-all"
+          >
+            {link.title}
+          </a>
+        ))}
+        
+        {userLinks.length === 0 && (
+          <div class="bg-white border-4 border-black p-4 text-center font-bold">
+            No links added yet!
+          </div>
+        )}
+      </div>
+
+      <!-- Footer Branding -->
+      <a href="/" class="mt-12 bg-white border-2 border-black px-4 py-1 font-black uppercase text-xs shadow-[3px_3px_0_0_#000] hover:bg-yellow-200 transition-all">
+        Built with EverythingTogther
+      </a>
+    </div>
+
+    <script>
+      // Ping the click-tracker API whenever a visitor clicks a link
+      document.querySelectorAll('.trackable-link').forEach((anchor) => {
+        anchor.addEventListener('click', () => {
+          const linkId = Number(anchor.getAttribute('data-link-id'));
+          if (linkId) {
+            fetch('/api/track-click', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ linkId }),
+              keepalive: true
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
