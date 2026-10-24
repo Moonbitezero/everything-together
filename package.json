@@ -14,10 +14,10 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^6.0.2",
-    "@astrojs/vercel": "^11.0.16",
+    "@astrojs/vercel": "^8.2.11",
     "@supabase/supabase-js": "^2.118.0",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.2",
+    "astro": "^5.18.2",
     "drizzle-orm": "^0.45.4",
     "postgres": "^3.4.9",
     "tailwindcss": "^3.4.19"
