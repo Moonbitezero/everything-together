@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://everything-together.vercel.app',
+  site: 'https://everything-together-7r5r.vercel.app',
   output: 'server',
   adapter: vercel(),
   integrations: [tailwind(), sitemap()],
