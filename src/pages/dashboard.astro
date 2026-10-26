@@ -22,7 +22,7 @@
         </div>
       </div>
       
-     <!-- 1. Profile & Theme Setup Form -->
+      <!-- 1. Profile & Theme Setup Form -->
       <div class="bg-yellow-200 border-4 border-black p-6 shadow-[4px_4px_0_0_#000] mb-8">
         <h2 class="text-2xl font-bold uppercase mb-4">1. Customize Profile</h2>
         <form id="profile-form" class="space-y-4">
@@ -65,6 +65,7 @@
               </optgroup>
             </select>
           </div>
+
           <button type="submit" id="save-profile-btn" class="bg-white border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all mt-4">
             Save Profile
           </button>
@@ -82,7 +83,6 @@
 
         <form id="add-link-form" class="space-y-4">
           <div id="link-rows-container" class="space-y-4">
-            <!-- First Link Row -->
             <div class="link-row bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_#000] grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block font-bold mb-1 uppercase text-xs">Link Title (e.g., My YouTube)</label>
@@ -115,7 +115,6 @@
 
       let currentUserId = '';
 
-      // 1. Verify User, Load Profile & Load Links
       async function checkUser() {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
@@ -128,7 +127,6 @@
       }
       checkUser();
 
-      // Add Another Link Input Row Dynamically
       document.getElementById('add-row-btn')?.addEventListener('click', () => {
         const container = document.getElementById('link-rows-container');
         const row = document.createElement('div');
@@ -150,7 +148,6 @@
         container?.appendChild(row);
       });
 
-      // Load Existing Profile Data
       async function loadProfile() {
         const res = await fetch('/api/get-profile', {
           method: 'POST',
@@ -164,7 +161,7 @@
           (document.getElementById('display-name') as HTMLInputElement).value = profile.displayName || '';
           (document.getElementById('bio') as HTMLTextAreaElement).value = profile.bio || '';
           (document.getElementById('avatar-url') as HTMLInputElement).value = profile.avatarUrl || '';
-          (document.getElementById('theme-bg') as HTMLSelectElement).value = profile.themeBackground || '#e6e9e3';
+          (document.getElementById('theme-bg') as HTMLSelectElement).value = profile.themeBackground || 'minimal-light';
           
           const viewBtn = document.getElementById('view-page-btn') as HTMLAnchorElement;
           viewBtn.href = `/${profile.username}`;
@@ -172,7 +169,6 @@
         }
       }
 
-      // 2. Fetch and Display Links
       async function loadLinks() {
         const container = document.getElementById('links-container');
         try {
@@ -211,6 +207,20 @@
         }
       }
 
+      (window as any).editLink = async (linkId: number, oldTitle: string, oldUrl: string) => {
+        const title = prompt('Update Link Title:', oldTitle);
+        if (!title) return;
+        const url = prompt('Update Link URL:', oldUrl);
+        if (!url) return;
+
+        await fetch('/api/update-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: currentUserId, linkId, title, url })
+        });
+        loadLinks();
+      };
+
       // 3. Edit & Delete Link Functions
       (window as any).editLink = async (linkId: number, oldTitle: string, oldUrl: string) => {
         const title = prompt('Update Link Title:', oldTitle);
@@ -238,7 +248,7 @@
         loadLinks();
       };
 
-      // 4. Handle Profile Save/Update
+      // 4. Handle Profile Save/Update (REPLACE THIS PART BELOW)
       document.getElementById('profile-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = (document.getElementById('username') as HTMLInputElement).value;
@@ -257,11 +267,10 @@
           alert('Profile updated!');
           loadProfile();
         } else {
-          alert('Error saving profile. Username might be taken.');
+          const errData = await res.json().catch(() => ({}));
+          alert('Error saving profile: ' + (errData.error || 'Unknown error'));
         }
       });
-
-      // 5. Handle Saving Multiple Links at Once
       document.getElementById('add-link-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const rows = document.querySelectorAll('.link-row');
@@ -286,7 +295,6 @@
         submitBtn.disabled = false;
 
         if (allOk) {
-          // Reset back to a single clean input row
           const container = document.getElementById('link-rows-container')!;
           container.innerHTML = `
             <div class="link-row bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_#000] grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -306,7 +314,6 @@
         }
       });
 
-      // 6. Handle Log Out
       document.getElementById('logout-btn')?.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = '/login';
