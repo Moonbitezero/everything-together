@@ -22,7 +22,7 @@
         </div>
       </div>
       
-      <!-- 1. Profile & Theme Setup Form -->
+     <!-- 1. Profile & Theme Setup Form -->
       <div class="bg-yellow-200 border-4 border-black p-6 shadow-[4px_4px_0_0_#000] mb-8">
         <h2 class="text-2xl font-bold uppercase mb-4">1. Customize Profile</h2>
         <form id="profile-form" class="space-y-4">
@@ -48,16 +48,23 @@
           </div>
 
           <div>
-            <label class="block font-bold mb-1 uppercase text-sm">Page Background Theme</label>
+            <label class="block font-bold mb-1 uppercase text-sm">Page Style & Theme</label>
             <select id="theme-bg" class="w-full border-4 border-black p-2 font-bold bg-white shadow-[4px_4px_0_0_#000] focus:outline-none">
-              <option value="#e6e9e3">Concrete Grey (Default)</option>
-              <option value="#fef08a">Cyber Yellow</option>
-              <option value="#a5f3fc">Electric Cyan</option>
-              <option value="#fbcfe8">Brutalist Pink</option>
-              <option value="#bbf7d0">Acid Green</option>
+              <optgroup label="✨ Modern & Clean (Most Popular)">
+                <option value="minimal-light">Minimal Light (Clean Apple/Notion Vibe)</option>
+                <option value="dark-glass">Midnight Glass (Sleek Dark Mode)</option>
+                <option value="sunset-gradient">Sunset Gradient (Soft & Modern)</option>
+                <option value="pastel-sage">Soft Sage (Calm & Rounded)</option>
+              </optgroup>
+              <optgroup label="⚡ Neo-Brutalist (Bold Borders)">
+                <option value="#e6e9e3">Brutalist Concrete Grey</option>
+                <option value="#fef08a">Brutalist Cyber Yellow</option>
+                <option value="#a5f3fc">Brutalist Electric Cyan</option>
+                <option value="#fbcfe8">Brutalist Pink</option>
+                <option value="#bbf7d0">Brutalist Acid Green</option>
+              </optgroup>
             </select>
           </div>
-
           <button type="submit" id="save-profile-btn" class="bg-white border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all mt-4">
             Save Profile
           </button>
