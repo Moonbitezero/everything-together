@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { db } from '../../db';
-import { profiles } from '../../db/schema';
+import { users } from '../../db/schema';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -13,20 +13,20 @@ export const POST: APIRoute = async ({ request }) => {
     const cleanUsername = username.trim().toLowerCase();
 
     await db
-      .insert(profiles)
+      .insert(users)
       .values({
         id,
         username: cleanUsername,
-        displayName,
+        displayName: displayName || cleanUsername,
         bio,
         avatarUrl,
         themeBackground,
       })
       .onConflictDoUpdate({
-        target: profiles.id,
+        target: users.id,
         set: {
           username: cleanUsername,
-          displayName,
+          displayName: displayName || cleanUsername,
           bio,
           avatarUrl,
           themeBackground,

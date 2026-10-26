@@ -1,7 +1,7 @@
 ---
 // src/pages/[username].astro
 import { db } from '../db';
-import { profiles, links } from '../db/schema';
+import { users, links } from '../db/schema';
 import { eq } from 'drizzle-orm';
 
 const { username } = Astro.params;
@@ -12,8 +12,8 @@ if (!username) {
 
 const userProfile = await db
   .select()
-  .from(profiles)
-  .where(eq(profiles.username, username))
+  .from(users)
+  .where(eq(users.username, username.toLowerCase()))
   .limit(1);
 
 if (!userProfile.length) {
