@@ -5,153 +5,249 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard | EverythingTogether</title>
+    <title>Creator Studio | EverythingTogether</title>
   </head>
-  <body class="bg-slate-50 min-h-screen p-4 sm:p-8 font-sans text-slate-900">
+  <body class="bg-slate-950 min-h-screen p-4 sm:p-8 font-sans text-slate-100">
     
-    <div class="max-w-3xl mx-auto space-y-8">
+    <div class="max-w-7xl mx-auto">
       
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200 gap-4">
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+      <!-- Top Bar -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-900/90 backdrop-blur-md p-6 rounded-2xl border border-slate-800 mb-8 gap-4">
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight text-white">Creator Studio</h1>
+          <p class="text-sm text-slate-400">Customize your colors, gradients, GIFs, music, intro video & links</p>
+        </div>
         <div class="flex gap-3">
-          <a id="view-page-btn" href="#" target="_blank" class="hidden px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-medium rounded-lg transition-colors">
+          <a id="view-page-btn" href="#" target="_blank" class="hidden px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-indigo-600/20">
             View Live Page ↗
           </a>
-          <button id="logout-btn" class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 font-medium rounded-lg transition-colors">
+          <button id="logout-btn" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium rounded-xl transition-colors">
             Log Out
           </button>
         </div>
       </div>
-      
-      <!-- 1. Profile & Theme Builder -->
-      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-          <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span> 
-          Profile & Design
-        </h2>
+
+      <!-- Main Studio Grid: Editor on Left, Live Phone Preview on Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <form id="profile-form" class="space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Username</label>
-              <input type="text" id="username" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white" required>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Display Name</label>
-              <input type="text" id="display-name" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white" required>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Avatar Image URL (Optional)</label>
-            <input type="url" id="avatar-url" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white">
-          </div>
-
-          <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Short Bio</label>
-            <textarea id="bio" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white"></textarea>
-          </div>
-
-          <!-- Advanced Design Customizer -->
-          <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-6">
-            <h3 class="font-semibold text-slate-800">Design Your Page</h3>
+        <!-- LEFT COLUMN: Editor Controls (7 cols) -->
+        <div class="lg:col-span-7 space-y-8">
+          
+          <form id="profile-form" class="space-y-8">
             
-            <!-- Colors -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Background</label>
-                <input type="color" id="custom-bg" value="#f8fafc" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+            <!-- Section 1: Identity & Avatar (Supports Images & GIFs) -->
+            <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-5">
+              <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 w-7 h-7 rounded-lg flex items-center justify-center text-xs">1</span>
+                Profile & Avatar (Image or GIF)
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Username</label>
+                  <input type="text" id="username" placeholder="sameer" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none" required>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Display Name</label>
+                  <input type="text" id="display-name" placeholder="Sameer" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none" required>
+                </div>
               </div>
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Text</label>
-                <input type="color" id="custom-text" value="#0f172a" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Avatar Image or Animated GIF URL</label>
+                <input type="url" id="avatar-url" placeholder="https://media.giphy.com/... or image link" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
               </div>
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button BG</label>
-                <input type="color" id="custom-btn" value="#3b82f6" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button Text</label>
-                <input type="color" id="custom-btn-text" value="#ffffff" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Bio</label>
+                <textarea id="bio" rows="2" placeholder="Welcome to my world..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
               </div>
             </div>
 
-            <!-- Shapes & Fonts -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 pt-5">
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Font Style</label>
-                <select id="font-family" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-                  <option value="font-sans">Modern (Sans)</option>
-                  <option value="font-serif">Elegant (Serif)</option>
-                  <option value="font-mono">Retro (Mono)</option>
-                </select>
+            <!-- Section 2: Background & Theme Engine -->
+            <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+              <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 w-7 h-7 rounded-lg flex items-center justify-center text-xs">2</span>
+                Background, Colors & Button Animations
+              </h2>
+
+              <!-- Background Mode -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Background Mode</label>
+                  <select id="bg-type" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <option value="solid">Solid Color</option>
+                    <option value="gradient">Color Gradient</option>
+                    <option value="image">Custom Image / Animated GIF</option>
+                    <option value="video">Looping Background Video (.mp4)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Background Image / GIF / MP4 URL</label>
+                  <input type="url" id="bg-media-url" placeholder="https://... (.jpg, .gif, or .mp4)" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
               </div>
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button Shape</label>
-                <select id="button-shape" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-                  <option value="rounded-2xl">Rounded Corners</option>
-                  <option value="rounded-full">Pill Shape</option>
-                  <option value="rounded-none">Sharp Square</option>
-                </select>
+
+              <!-- Color Pickers -->
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1">Primary BG</label>
+                  <input type="color" id="custom-bg" value="#0f172a" class="w-full h-9 rounded cursor-pointer bg-transparent border-0">
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1">Gradient 2nd</label>
+                  <input type="color" id="gradient-to" value="#3b82f6" class="w-full h-9 rounded cursor-pointer bg-transparent border-0">
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1">Page Text</label>
+                  <input type="color" id="custom-text" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-transparent border-0">
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1">Button Color</label>
+                  <input type="color" id="custom-btn" value="#3b82f6" class="w-full h-9 rounded cursor-pointer bg-transparent border-0">
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1">Button Text</label>
+                  <input type="color" id="custom-btn-text" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-transparent border-0">
+                </div>
               </div>
-              <div class="flex flex-col gap-1.5">
-                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button Style</label>
-                <select id="button-style" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-                  <option value="fill">Solid Fill</option>
-                  <option value="outline">Outline Only</option>
-                  <option value="brutalist">Hard Shadow (Brutalist)</option>
-                </select>
+
+              <!-- Button Shape, Style, Animation & Font -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Font Style</label>
+                  <select id="font-family" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none">
+                    <option value="font-sans">Modern Clean (Sans)</option>
+                    <option value="font-serif">Luxury / Editorial (Serif)</option>
+                    <option value="font-mono">Cyber / Retro (Mono)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Button Shape</label>
+                  <select id="button-shape" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none">
+                    <option value="rounded-2xl">Smooth Rounded</option>
+                    <option value="rounded-full">Full Pill Shape</option>
+                    <option value="rounded-none">Sharp Cyber / Square</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Button Visual Style</label>
+                  <select id="button-style" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none">
+                    <option value="fill">Solid Fill</option>
+                    <option value="glass">Frosted Glassmorphism</option>
+                    <option value="outline">Neon / Clean Outline</option>
+                    <option value="brutalist">Hard Shadow (Brutalist)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Button Hover Animation</label>
+                  <select id="button-animation" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none">
+                    <option value="scale">Smooth Zoom (Scale)</option>
+                    <option value="lift">3D Float Up</option>
+                    <option value="glow">Neon Outer Glow</option>
+                    <option value="pulse">Continuous Heartbeat Pulse</option>
+                  </select>
+                </div>
               </div>
+            </div>
+
+            <!-- Section 3: Audio, Voiceover & Intro Video -->
+            <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-5">
+              <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 w-7 h-7 rounded-lg flex items-center justify-center text-xs">3</span>
+                Music / Voiceover & Intro Video Clip
+              </h2>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Background Song or Voiceover URL (.mp3 / .wav)</label>
+                <input type="url" id="audio-url" placeholder="https://.../song-or-voiceover.mp3" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                <p class="text-xs text-slate-500 mt-1">Visitors get a sleek floating play/mute control on your page.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Intro Video or Animation Clip URL (YouTube link or direct .mp4)</label>
+                <input type="url" id="intro-video-url" placeholder="https://www.youtube.com/watch?v=... or https://.../clip.mp4" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                <p class="text-xs text-slate-500 mt-1">Displays an embedded showcase video player right below your bio.</p>
+              </div>
+
+              <button type="submit" id="save-profile-btn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/25">
+                Save All Design & Media Settings
+              </button>
+            </div>
+          </form>
+
+          <!-- Section 4: Add Links -->
+          <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex justify-between items-center">
+              <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 w-7 h-7 rounded-lg flex items-center justify-center text-xs">4</span>
+                Add Links
+              </h2>
+              <button type="button" id="add-row-btn" class="px-3.5 py-1.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 font-medium rounded-lg text-sm transition-colors">
+                + Add Another Row
+              </button>
+            </div>
+
+            <form id="add-link-form" class="space-y-4">
+              <div id="link-rows-container" class="space-y-3">
+                <div class="link-row bg-slate-950 border border-slate-800 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Link Title</label>
+                    <input type="text" name="title" placeholder="My YouTube Channel" class="link-title w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white outline-none" required>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">URL</label>
+                    <input type="url" name="url" placeholder="https://..." class="link-url w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white outline-none" required>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" id="submit-link-btn" class="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors">
+                Save Links
+              </button>
+            </form>
+          </div>
+
+          <!-- Section 5: Manage Existing Links -->
+          <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800">
+            <h2 class="text-lg font-bold text-white mb-4">Manage Your Links</h2>
+            <div id="links-container" class="space-y-3">
+              <p class="text-slate-400 text-sm">Loading your links...</p>
             </div>
           </div>
 
-          <button type="submit" id="save-profile-btn" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-sm">
-            Save Profile & Design
-          </button>
-        </form>
-      </div>
-
-      <!-- 2. Add Links -->
-      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <h2 class="text-xl font-bold flex items-center gap-2">
-            <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span> 
-            Add Links
-          </h2>
-          <button type="button" id="add-row-btn" class="px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-medium rounded-lg text-sm transition-colors flex items-center gap-1">
-            <span>+</span> Add Row
-          </button>
         </div>
 
-        <form id="add-link-form" class="space-y-4">
-          <div id="link-rows-container" class="space-y-4">
-            <div class="link-row bg-slate-50 border border-slate-200 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label>
-                <input type="text" name="title" placeholder="My YouTube" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
+        <!-- RIGHT COLUMN: Sticky Live Phone Mockup (5 cols) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-8 flex flex-col items-center">
+          <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Live Mobile Preview</p>
+          <div class="w-[340px] h-[680px] rounded-[42px] border-[10px] border-slate-800 bg-slate-950 shadow-2xl overflow-hidden relative flex flex-col">
+            
+            <!-- Dynamic Background Layer -->
+            <div id="preview-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-300"></div>
+            <video id="preview-bg-video" class="hidden absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+
+            <!-- Phone Content -->
+            <div id="preview-content" class="relative z-10 flex-1 overflow-y-auto p-6 flex flex-col items-center text-center">
+              <img id="preview-avatar" src="https://api.dicebear.com/7.x/shapes/svg?seed=preview" class="w-24 h-24 rounded-full object-cover mb-3 shadow-lg border-2 border-white/30" />
+              <h3 id="preview-name" class="text-xl font-bold">Your Name</h3>
+              <p id="preview-handle" class="text-xs opacity-75 mb-2">@username</p>
+              <p id="preview-bio" class="text-xs opacity-90 mb-5 max-w-[240px]">Your custom bio will appear right here.</p>
+
+              <!-- Audio Badge Preview -->
+              <div id="preview-audio-badge" class="hidden mb-4 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md text-white text-xs items-center gap-2 border border-white/20">
+                <span>🎵 Voiceover / Song Attached</span>
               </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label>
-                <input type="url" name="url" placeholder="https://..." class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
+
+              <!-- Sample Buttons -->
+              <div class="w-full space-y-3 mt-2" id="preview-buttons">
+                <a href="#preview" class="preview-btn block w-full py-3 px-4 font-bold text-sm transition-all">Sample Link 1</a>
+                <a href="#preview" class="preview-btn block w-full py-3 px-4 font-bold text-sm transition-all">Sample Link 2</a>
               </div>
             </div>
           </div>
-          <button type="submit" id="submit-link-btn" class="w-full sm:w-auto px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-colors shadow-sm">
-            Save Links
-          </button>
-        </form>
-      </div>
-
-      <!-- 3. Manage Links -->
-      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-          <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span> 
-          Manage Links
-        </h2>
-        <div id="links-container" class="space-y-3">
-          <p class="text-slate-500 animate-pulse">Loading your links...</p>
         </div>
+
       </div>
     </div>
 
@@ -165,27 +261,102 @@
           window.location.href = '/login';
           return;
         }
-        currentUserId = user.id; 
-        loadProfile();
-        loadLinks();
+        currentUserId = user.id;
+        await loadProfile();
+        await loadLinks();
+        updateLivePreview();
       }
       checkUser();
+
+      // Live Preview Updater
+      function updateLivePreview() {
+        const username = (document.getElementById('username') as HTMLInputElement).value || 'username';
+        const displayName = (document.getElementById('display-name') as HTMLInputElement).value || 'Your Name';
+        const bio = (document.getElementById('bio') as HTMLTextAreaElement).value || 'Your custom bio will appear right here.';
+        const avatarUrl = (document.getElementById('avatar-url') as HTMLInputElement).value;
+        const bgType = (document.getElementById('bg-type') as HTMLSelectElement).value;
+        const customBg = (document.getElementById('custom-bg') as HTMLInputElement).value;
+        const gradientTo = (document.getElementById('gradient-to') as HTMLInputElement).value;
+        const bgMediaUrl = (document.getElementById('bg-media-url') as HTMLInputElement).value;
+        const customText = (document.getElementById('custom-text') as HTMLInputElement).value;
+        const customBtn = (document.getElementById('custom-btn') as HTMLInputElement).value;
+        const customBtnText = (document.getElementById('custom-btn-text') as HTMLInputElement).value;
+        const fontFamily = (document.getElementById('font-family') as HTMLSelectElement).value;
+        const buttonShape = (document.getElementById('button-shape') as HTMLSelectElement).value;
+        const buttonStyle = (document.getElementById('button-style') as HTMLSelectElement).value;
+        const audioUrl = (document.getElementById('audio-url') as HTMLInputElement).value;
+
+        const previewBg = document.getElementById('preview-bg')!;
+        const previewVideo = document.getElementById('preview-bg-video') as HTMLVideoElement;
+        const previewContent = document.getElementById('preview-content')!;
+
+        previewContent.className = `relative z-10 flex-1 overflow-y-auto p-6 flex flex-col items-center text-center ${fontFamily}`;
+        previewContent.style.color = customText;
+
+        (document.getElementById('preview-name') as HTMLElement).textContent = displayName;
+        (document.getElementById('preview-handle') as HTMLElement).textContent = `@${username}`;
+        (document.getElementById('preview-bio') as HTMLElement).textContent = bio;
+        (document.getElementById('preview-avatar') as HTMLImageElement).src =
+          avatarUrl || `https://api.dicebear.com/7.x/shapes/svg?seed=${username}`;
+
+        // Background Mode
+        previewVideo.classList.add('hidden');
+        previewBg.style.backgroundImage = 'none';
+        if (bgType === 'solid') {
+          previewBg.style.backgroundColor = customBg;
+        } else if (bgType === 'gradient') {
+          previewBg.style.backgroundImage = `linear-gradient(135deg, ${customBg}, ${gradientTo})`;
+        } else if (bgType === 'image' && bgMediaUrl) {
+          previewBg.style.backgroundImage = `url('${bgMediaUrl}')`;
+        } else if (bgType === 'video' && bgMediaUrl) {
+          previewVideo.src = bgMediaUrl;
+          previewVideo.classList.remove('hidden');
+        }
+
+        // Audio badge
+        const audioBadge = document.getElementById('preview-audio-badge')!;
+        audioBadge.className = audioUrl
+          ? 'mb-4 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md text-white text-xs flex items-center gap-2 border border-white/20'
+          : 'hidden';
+
+        // Style sample buttons
+        document.querySelectorAll('.preview-btn').forEach((btn) => {
+          const el = btn as HTMLElement;
+          el.className = `preview-btn block w-full py-3 px-4 font-bold text-sm transition-all ${buttonShape}`;
+          el.style.backgroundColor =
+            buttonStyle === 'outline' ? 'transparent' : buttonStyle === 'glass' ? 'rgba(255,255,255,0.15)' : customBtn;
+          el.style.color = buttonStyle === 'outline' ? customBtn : customBtnText;
+          el.style.border =
+            buttonStyle === 'outline'
+              ? `2px solid ${customBtn}`
+              : buttonStyle === 'brutalist'
+              ? `2px solid ${customText}`
+              : buttonStyle === 'glass'
+              ? '1px solid rgba(255,255,255,0.3)'
+              : 'none';
+          el.style.boxShadow = buttonStyle === 'brutalist' ? `4px 4px 0px 0px ${customText}` : 'none';
+        });
+      }
+
+      document.querySelectorAll('#profile-form input, #profile-form select, #profile-form textarea').forEach((input) => {
+        input.addEventListener('input', updateLivePreview);
+      });
 
       // Add extra link row
       document.getElementById('add-row-btn')?.addEventListener('click', () => {
         const container = document.getElementById('link-rows-container');
         const row = document.createElement('div');
-        row.className = 'link-row bg-slate-50 border border-slate-200 rounded-xl p-4 relative';
+        row.className = 'link-row bg-slate-950 border border-slate-800 rounded-xl p-4 relative';
         row.innerHTML = `
-          <button type="button" class="remove-row-btn absolute -top-2 -right-2 bg-red-100 hover:bg-red-200 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
+          <button type="button" class="remove-row-btn absolute -top-2 -right-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">✕</button>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label>
-              <input type="text" name="title" placeholder="Another Link" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
+              <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Link Title</label>
+              <input type="text" name="title" placeholder="Another Link" class="link-title w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white outline-none" required>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label>
-              <input type="url" name="url" placeholder="https://..." class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
+              <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">URL</label>
+              <input type="url" name="url" placeholder="https://..." class="link-url w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white outline-none" required>
             </div>
           </div>
         `;
@@ -193,7 +364,6 @@
         container?.appendChild(row);
       });
 
-      // Load Profile & Theme Data
       async function loadProfile() {
         try {
           const res = await fetch('/api/get-profile', {
@@ -208,16 +378,20 @@
             (document.getElementById('display-name') as HTMLInputElement).value = profile.displayName || '';
             (document.getElementById('bio') as HTMLTextAreaElement).value = profile.bio || '';
             (document.getElementById('avatar-url') as HTMLInputElement).value = profile.avatarUrl || '';
-            
-            (document.getElementById('custom-bg') as HTMLInputElement).value = profile.customBg || '#f8fafc';
-            (document.getElementById('custom-text') as HTMLInputElement).value = profile.customText || '#0f172a';
+            (document.getElementById('bg-type') as HTMLSelectElement).value = profile.bgType || 'solid';
+            (document.getElementById('custom-bg') as HTMLInputElement).value = profile.customBg || '#0f172a';
+            (document.getElementById('gradient-to') as HTMLInputElement).value = profile.gradientTo || '#3b82f6';
+            (document.getElementById('bg-media-url') as HTMLInputElement).value = profile.bgMediaUrl || '';
+            (document.getElementById('custom-text') as HTMLInputElement).value = profile.customText || '#ffffff';
             (document.getElementById('custom-btn') as HTMLInputElement).value = profile.customButton || '#3b82f6';
             (document.getElementById('custom-btn-text') as HTMLInputElement).value = profile.customButtonText || '#ffffff';
-            
             (document.getElementById('font-family') as HTMLSelectElement).value = profile.fontFamily || 'font-sans';
             (document.getElementById('button-shape') as HTMLSelectElement).value = profile.buttonShape || 'rounded-2xl';
             (document.getElementById('button-style') as HTMLSelectElement).value = profile.buttonStyle || 'fill';
-            
+            (document.getElementById('button-animation') as HTMLSelectElement).value = profile.buttonAnimation || 'scale';
+            (document.getElementById('audio-url') as HTMLInputElement).value = profile.audioUrl || '';
+            (document.getElementById('intro-video-url') as HTMLInputElement).value = profile.introVideoUrl || '';
+
             const viewBtn = document.getElementById('view-page-btn') as HTMLAnchorElement;
             viewBtn.href = `/${profile.username}`;
             viewBtn.classList.remove('hidden');
@@ -227,7 +401,6 @@
         }
       }
 
-      // Load Links
       async function loadLinks() {
         const container = document.getElementById('links-container');
         try {
@@ -237,23 +410,22 @@
             body: JSON.stringify({ userId: currentUserId })
           });
           const links = await res.json();
-          
           if (!Array.isArray(links) || links.length === 0) {
-            container!.innerHTML = '<p class="text-slate-500 p-4 bg-slate-50 rounded-xl border border-slate-200">No links added yet.</p>';
+            container!.innerHTML = '<p class="text-slate-500 p-4 bg-slate-950 rounded-xl border border-slate-800">No links added yet.</p>';
             return;
           }
 
           container!.innerHTML = links.map((link: any) => `
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50 border border-slate-200 p-4 rounded-xl">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-950 border border-slate-800 p-4 rounded-xl">
               <div class="overflow-hidden">
-                <p class="font-bold text-slate-800">${link.title}</p>
-                <a href="${link.url}" target="_blank" class="text-sm text-indigo-600 hover:underline break-all">${link.url}</a>
+                <p class="font-bold text-white">${link.title}</p>
+                <a href="${link.url}" target="_blank" class="text-sm text-indigo-400 hover:underline break-all">${link.url}</a>
               </div>
               <div class="flex gap-2 shrink-0">
-                <button onclick="editLink(${link.id}, '${link.title.replace(/'/g, "\\'")}', '${link.url.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors">
+                <button onclick="editLink(${link.id}, '${link.title.replace(/'/g, "\\'")}', '${link.url.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg">
                   Edit
                 </button>
-                <button onclick="deleteLink(${link.id})" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-lg transition-colors">
+                <button onclick="deleteLink(${link.id})" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium rounded-lg">
                   Delete
                 </button>
               </div>
@@ -264,7 +436,6 @@
         }
       }
 
-      // Edit & Delete Link Functions
       (window as any).editLink = async (linkId: number, oldTitle: string, oldUrl: string) => {
         const title = prompt('Update Link Title:', oldTitle);
         if (!title) return;
@@ -288,7 +459,6 @@
         loadLinks();
       };
 
-      // Handle Profile & Design Save
       document.getElementById('profile-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const saveBtn = document.getElementById('save-profile-btn') as HTMLButtonElement;
@@ -301,26 +471,32 @@
           displayName: (document.getElementById('display-name') as HTMLInputElement).value,
           bio: (document.getElementById('bio') as HTMLTextAreaElement).value,
           avatarUrl: (document.getElementById('avatar-url') as HTMLInputElement).value,
+          bgType: (document.getElementById('bg-type') as HTMLSelectElement).value,
           customBg: (document.getElementById('custom-bg') as HTMLInputElement).value,
+          gradientTo: (document.getElementById('gradient-to') as HTMLInputElement).value,
+          bgMediaUrl: (document.getElementById('bg-media-url') as HTMLInputElement).value,
           customText: (document.getElementById('custom-text') as HTMLInputElement).value,
           customButton: (document.getElementById('custom-btn') as HTMLInputElement).value,
           customButtonText: (document.getElementById('custom-btn-text') as HTMLInputElement).value,
           fontFamily: (document.getElementById('font-family') as HTMLSelectElement).value,
           buttonShape: (document.getElementById('button-shape') as HTMLSelectElement).value,
           buttonStyle: (document.getElementById('button-style') as HTMLSelectElement).value,
+          buttonAnimation: (document.getElementById('button-animation') as HTMLSelectElement).value,
+          audioUrl: (document.getElementById('audio-url') as HTMLInputElement).value,
+          introVideoUrl: (document.getElementById('intro-video-url') as HTMLInputElement).value,
         };
-        
+
         const res = await fetch('/api/save-profile', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
         });
 
-        saveBtn.textContent = 'Save Profile & Design';
+        saveBtn.textContent = 'Save All Design & Media Settings';
         saveBtn.disabled = false;
 
         if (res.ok) {
-          alert('Profile & Design Saved!');
+          alert('Studio Design & Media Saved!');
           loadProfile();
         } else {
           const errData = await res.json().catch(() => ({}));
@@ -328,7 +504,6 @@
         }
       });
 
-      // Handle Add Links Submit
       document.getElementById('add-link-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const rows = document.querySelectorAll('.link-row');
@@ -340,31 +515,18 @@
           await fetch('/api/add-link', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              userId: currentUserId, 
-              title: (row.querySelector('.link-title') as HTMLInputElement).value, 
-              url: (row.querySelector('.link-url') as HTMLInputElement).value 
+            body: JSON.stringify({
+              userId: currentUserId,
+              title: (row.querySelector('.link-title') as HTMLInputElement).value,
+              url: (row.querySelector('.link-url') as HTMLInputElement).value
             })
           });
         }
         submitBtn.textContent = 'Save Links';
         submitBtn.disabled = false;
-
-        document.getElementById('link-rows-container')!.innerHTML = `
-          <div class="link-row bg-slate-50 border border-slate-200 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label>
-              <input type="text" name="title" placeholder="My YouTube" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label>
-              <input type="url" name="url" placeholder="https://..." class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white" required>
-            </div>
-          </div>`;
         loadLinks();
       });
 
-      // Handle Logout
       document.getElementById('logout-btn')?.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = '/login';

@@ -5,10 +5,7 @@ import { users, links } from '../db/schema';
 import { eq } from 'drizzle-orm';
 
 const { username } = Astro.params;
-
-if (!username) {
-  return Astro.redirect('/404');
-}
+if (!username) return Astro.redirect('/404');
 
 const userProfile = await db
   .select()
@@ -16,21 +13,53 @@ const userProfile = await db
   .where(eq(users.username, username.toLowerCase()))
   .limit(1);
 
-if (!userProfile.length) {
-  return new Response('User not found', { status: 404 });
-}
+if (!userProfile.length) return new Response('User not found', { status: 404 });
 
 const profile = userProfile[0];
 const userLinks = await db
   .select()
   .from(links)
-  .where(eq(links.userId, profile.id));
+  .where(eq(links.userId, profile.id))
+  .orderBy(links.orderIndex);
 
-// Use the custom colors from the database, or fall back to defaults
-const bg = profile.customBg || '#f8fafc';
-const textColor = profile.customText || '#0f172a';
+// Colors & Backgrounds
+const bgType = profile.bgType || 'solid';
+const bg = profile.customBg || '#0f172a';
+const gradTo = profile.gradientTo || '#3b82f6';
+const bgMedia = profile.bgMediaUrl || '';
+const textColor = profile.customText || '#ffffff';
 const btnBg = profile.customButton || '#3b82f6';
 const btnText = profile.customButtonText || '#ffffff';
+
+// Styles & Animations
+const fontClass = profile.fontFamily || 'font-sans';
+const shapeClass = profile.buttonShape || 'rounded-2xl';
+const btnStyle = profile.buttonStyle || 'fill';
+const btnAnim = profile.buttonAnimation || 'scale';
+
+const animClass =
+  btnAnim === 'scale'
+    ? 'hover:scale-[1.03]'
+    : btnAnim === 'lift'
+    ? 'hover:-translate-y-1.5 hover:shadow-2xl'
+    : btnAnim === 'glow'
+    ? 'hover:shadow-[0_0_25px_rgba(255,255,255,0.45)]'
+    : 'animate-pulse';
+
+// Helper to detect YouTube embeds for Intro Video
+function getYouTubeEmbed(url: string) {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?/]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+const youtubeEmbedUrl = getYouTubeEmbed(profile.introVideoUrl || '');
+
+const bodyBgStyle =
+  bgType === 'gradient'
+    ? `background: linear-gradient(135deg, ${bg}, ${gradTo}); color: ${textColor};`
+    : bgType === 'image' && bgMedia
+    ? `background-image: url('${bgMedia}'); background-size: cover; background-position: center; background-attachment: fixed; color: ${textColor};`
+    : `background-color: ${bg}; color: ${textColor};`;
 ---
 
 <html lang="en">
@@ -39,51 +68,121 @@ const btnText = profile.customButtonText || '#ffffff';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{profile.displayName || profile.username} | EverythingTogether</title>
   </head>
-  <body
-    class="min-h-screen flex flex-col items-center py-16 px-6 font-sans transition-colors duration-300"
-    style={`background-color: ${bg}; color: ${textColor};`}
-  >
-    <div class="w-full max-w-xl">
+  <body class={`min-h-screen relative flex flex-col items-center py-16 px-6 overflow-x-hidden ${fontClass}`} style={bodyBgStyle}>
+    
+    <!-- Looping Background Video (if selected) -->
+    {bgType === 'video' && bgMedia && (
+      <video autoplay loop muted playsinline class="fixed inset-0 w-full h-full object-cover -z-20">
+        <source src={bgMedia} type="video/mp4" />
+      </video>
+    )}
+
+    <!-- Subtle Backdrop Overlay for Image/Video Readability -->
+    {(bgType === 'image' || bgType === 'video') && (
+      <div class="fixed inset-0 bg-black/40 backdrop-blur-[2px] -z-10"></div>
+    )}
+
+    <!-- Floating Audio / Voiceover Player -->
+    {profile.audioUrl && (
+      <div class="fixed top-5 right-5 z-50">
+        <audio id="bg-audio" src={profile.audioUrl} loop></audio>
+        <button
+          id="audio-toggle"
+          class="px-4 py-2.5 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md border border-white/20 shadow-xl flex items-center gap-2 text-xs font-bold tracking-wide transition-all"
+        >
+          <span id="audio-icon">▶️</span>
+          <span id="audio-label">Play Audio</span>
+        </button>
+      </div>
+    )}
+
+    <div class="w-full max-w-xl relative z-10">
       <!-- Profile Header -->
-      <div class="flex flex-col items-center text-center mb-10">
+      <div class="flex flex-col items-center text-center mb-8">
         <img
           src={profile.avatarUrl || `https://api.dicebear.com/7.x/shapes/svg?seed=${profile.username}`}
           alt={profile.displayName}
-          class="w-28 h-28 rounded-full object-cover mb-4 shadow-lg border-2 border-white/20"
+          class={`w-28 h-28 object-cover mb-4 shadow-2xl border-4 border-white/25 ${shapeClass === 'rounded-none' ? 'rounded-none' : 'rounded-full'}`}
         />
-        <h1 class="text-3xl font-bold tracking-tight mb-1">{profile.displayName || profile.username}</h1>
-        <p class="text-sm opacity-75 font-medium mb-3">@{profile.username}</p>
-        
-        {profile.bio && (
-          <p class="text-base opacity-90 max-w-md leading-relaxed">{profile.bio}</p>
-        )}
+        <h1 class="text-3xl font-extrabold tracking-tight mb-1">{profile.displayName || profile.username}</h1>
+        <p class="text-sm font-medium mb-3 opacity-80">@{profile.username}</p>
+        {profile.bio && <p class="text-base max-w-md leading-relaxed opacity-90">{profile.bio}</p>}
       </div>
+
+      <!-- Featured Intro Video / Animation Clip -->
+      {profile.introVideoUrl && (
+        <div class={`w-full overflow-hidden mb-8 shadow-2xl border border-white/20 bg-black/40 ${shapeClass}`}>
+          {youtubeEmbedUrl ? (
+            <iframe
+              src={youtubeEmbedUrl}
+              class="w-full aspect-video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          ) : (
+            <video src={profile.introVideoUrl} controls playsinline class="w-full max-h-80 object-cover"></video>
+          )}
+        </div>
+      )}
 
       <!-- Links List -->
       <div class="space-y-4">
         {userLinks.length === 0 ? (
-          <p class="text-center text-sm opacity-60 py-8 bg-black/5 rounded-2xl">No links added yet.</p>
+          <p class="text-center text-sm opacity-60 py-8 bg-black/10 rounded-2xl">No links added yet.</p>
         ) : (
           userLinks.map((link) => (
-            <a 
-              href={link.url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="block w-full py-4 px-6 rounded-2xl text-center font-semibold text-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl shadow-md"
-              style={`background-color: ${btnBg}; color: ${btnText};`}
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`block w-full py-4 px-6 text-center font-bold text-lg transition-all duration-200 ${shapeClass} ${animClass} ${btnStyle === 'glass' ? 'backdrop-blur-md' : ''}`}
+              style={`
+                background-color: ${btnStyle === 'outline' ? 'transparent' : btnStyle === 'glass' ? 'rgba(255, 255, 255, 0.15)' : btnBg};
+                color: ${btnStyle === 'outline' ? btnBg : btnText};
+                border: ${
+                  btnStyle === 'outline'
+                    ? `2px solid ${btnBg}`
+                    : btnStyle === 'brutalist'
+                    ? `2px solid ${textColor}`
+                    : btnStyle === 'glass'
+                    ? '1px solid rgba(255, 255, 255, 0.3)'
+                    : 'none'
+                };
+                ${btnStyle === 'brutalist' ? `box-shadow: 5px 5px 0px 0px ${textColor};` : ''}
+              `}
             >
               {link.title}
             </a>
           ))
         )}
       </div>
-      
-      <!-- Footer branding -->
+
       <div class="mt-16 text-center">
-        <a href="/" class="text-xs font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">
+        <a href="/" class="text-xs font-bold uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity">
           ⚡ Built with EverythingTogether
         </a>
       </div>
     </div>
+
+    <script>
+      const audio = document.getElementById('bg-audio') as HTMLAudioElement | null;
+      const toggleBtn = document.getElementById('audio-toggle');
+      const icon = document.getElementById('audio-icon');
+      const label = document.getElementById('audio-label');
+
+      if (audio && toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          if (audio.paused) {
+            audio.play();
+            if (icon) icon.textContent = '🔊';
+            if (label) label.textContent = 'Mute Audio';
+          } else {
+            audio.pause();
+            if (icon) icon.textContent = '▶️';
+            if (label) label.textContent = 'Play Audio';
+          }
+        });
+      }
+    </script>
   </body>
 </html>
