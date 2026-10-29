@@ -7,11 +7,16 @@ export const users = pgTable('users', {
   bio: text('bio'),
   avatarUrl: text('avatar_url'),
   
-  // New Custom Color Columns
+  // Colors
   customBg: text('custom_bg').default('#f8fafc'),
   customText: text('custom_text').default('#0f172a'),
   customButton: text('custom_button').default('#3b82f6'),
   customButtonText: text('custom_button_text').default('#ffffff'),
+  
+  // NEW: Advanced Theme Settings
+  fontFamily: text('font_family').default('font-sans'),
+  buttonShape: text('button_shape').default('rounded-2xl'),
+  buttonStyle: text('button_style').default('fill'),
   
   createdAt: timestamp('created_at').defaultNow(),
 });
