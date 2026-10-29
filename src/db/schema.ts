@@ -2,11 +2,17 @@ import { pgTable, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(),
-  username: text('username').notNull().unique(), 
+  username: text('username').notNull().unique(),
   displayName: text('display_name').notNull(),
   bio: text('bio'),
   avatarUrl: text('avatar_url'),
-  themeBackground: text('theme_background').default('#e6e9e3'),
+  
+  // New Custom Color Columns
+  customBg: text('custom_bg').default('#f8fafc'),
+  customText: text('custom_text').default('#0f172a'),
+  customButton: text('custom_button').default('#3b82f6'),
+  customButtonText: text('custom_button_text').default('#ffffff'),
+  
   createdAt: timestamp('created_at').defaultNow(),
 });
 

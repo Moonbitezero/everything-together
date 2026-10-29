@@ -5,7 +5,7 @@ import { eq, and, ne } from 'drizzle-orm';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { id, username, displayName, bio, avatarUrl, themeBackground } = await request.json();
+    const { id, username, displayName, bio, avatarUrl, customBg, customText, customButton, customButtonText } = await request.json();
 
     if (!id || !username) {
       return new Response(JSON.stringify({ error: 'User ID and username are required' }), { status: 400 });
@@ -21,12 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
       .limit(1);
 
     if (existingUser.length > 0) {
-      return new Response(
-        JSON.stringify({
-          error: `The username "${cleanUsername}" is already used by another account. Try a different username (or delete the old row in Supabase Table Editor).`,
-        }),
-        { status: 409 }
-      );
+      return new Response(JSON.stringify({ error: 'Username taken.' }), { status: 409 });
     }
 
     await db
@@ -37,7 +32,10 @@ export const POST: APIRoute = async ({ request }) => {
         displayName: displayName || cleanUsername,
         bio: bio || '',
         avatarUrl: avatarUrl || '',
-        themeBackground: themeBackground || 'minimal-light',
+        customBg: customBg || '#f8fafc',
+        customText: customText || '#0f172a',
+        customButton: customButton || '#3b82f6',
+        customButtonText: customButtonText || '#ffffff',
       })
       .onConflictDoUpdate({
         target: users.id,
@@ -46,14 +44,15 @@ export const POST: APIRoute = async ({ request }) => {
           displayName: displayName || cleanUsername,
           bio: bio || '',
           avatarUrl: avatarUrl || '',
-          themeBackground: themeBackground || 'minimal-light',
+          customBg: customBg || '#f8fafc',
+          customText: customText || '#0f172a',
+          customButton: customButton || '#3b82f6',
+          customButtonText: customButtonText || '#ffffff',
         },
       });
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error: any) {
-    console.error('Save Profile Error:', error);
-    const pgError = error?.cause?.message || error?.message || 'Database error while saving profile';
-    return new Response(JSON.stringify({ error: pgError }), { status: 500 });
+    return new Response(JSON.stringify({ error: error?.cause?.message || 'Database error' }), { status: 500 });
   }
 };

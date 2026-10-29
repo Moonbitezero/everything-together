@@ -5,122 +5,133 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Dashboard - EverythingTogether</title>
+    <title>Dashboard | EverythingTogether</title>
   </head>
-  <body class="bg-[#e6e9e3] min-h-screen p-8 font-sans">
+  <body class="bg-slate-50 min-h-screen p-4 sm:p-8 font-sans text-slate-900">
     
-    <div class="max-w-3xl mx-auto bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_#000]">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-4 border-black pb-4 mb-6 gap-4">
-        <h1 class="text-4xl font-black uppercase">Dashboard</h1>
+    <div class="max-w-3xl mx-auto space-y-8">
+      
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200 gap-4">
+        <h1 class="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
         <div class="flex gap-3">
-          <a id="view-page-btn" href="#" target="_blank" class="hidden bg-lime-400 border-4 border-black font-black uppercase px-4 py-2 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
-            View My Page ↗
+          <a id="view-page-btn" href="#" target="_blank" class="hidden px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-medium rounded-lg transition-colors">
+            View Live Page ↗
           </a>
-          <button id="logout-btn" class="bg-red-400 border-4 border-black font-black uppercase px-4 py-2 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+          <button id="logout-btn" class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 font-medium rounded-lg transition-colors">
             Log Out
           </button>
         </div>
       </div>
       
-      <!-- 1. Profile & Theme Setup Form -->
-      <div class="bg-yellow-200 border-4 border-black p-6 shadow-[4px_4px_0_0_#000] mb-8">
-        <h2 class="text-2xl font-bold uppercase mb-4">1. Customize Profile</h2>
-        <form id="profile-form" class="space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- 1. Profile & Theme Builder -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span> 
+          Profile & Design
+        </h2>
+        
+        <form id="profile-form" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label class="block font-bold mb-1 uppercase text-sm">Username (No spaces)</label>
-              <input type="text" id="username" class="w-full border-4 border-black p-2 focus:outline-none focus:bg-white shadow-[4px_4px_0_0_#000]" required>
+              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Username</label>
+              <input type="text" id="username" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white" required>
             </div>
             <div>
-              <label class="block font-bold mb-1 uppercase text-sm">Display Name</label>
-              <input type="text" id="display-name" class="w-full border-4 border-black p-2 focus:outline-none focus:bg-white shadow-[4px_4px_0_0_#000]" required>
+              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Display Name</label>
+              <input type="text" id="display-name" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white" required>
             </div>
           </div>
 
           <div>
-            <label class="block font-bold mb-1 uppercase text-sm">Avatar Image URL (Optional)</label>
-            <input type="url" id="avatar-url" placeholder="https://api.dicebear.com/7.x/bottts/svg?seed=sameer" class="w-full border-4 border-black p-2 focus:outline-none focus:bg-white shadow-[4px_4px_0_0_#000]">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Avatar Image URL (Optional)</label>
+            <input type="url" id="avatar-url" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white">
           </div>
 
           <div>
-            <label class="block font-bold mb-1 uppercase text-sm">Short Bio</label>
-            <textarea id="bio" rows="2" placeholder="Creator, editor & developer..." class="w-full border-4 border-black p-2 focus:outline-none focus:bg-white shadow-[4px_4px_0_0_#000]"></textarea>
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Short Bio</label>
+            <textarea id="bio" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 focus:bg-white"></textarea>
           </div>
 
-          <div>
-            <label class="block font-bold mb-1 uppercase text-sm">Page Style & Theme</label>
-            <select id="theme-bg" class="w-full border-4 border-black p-2 font-bold bg-white shadow-[4px_4px_0_0_#000] focus:outline-none">
-              <optgroup label="✨ Modern & Clean (Most Popular)">
-                <option value="minimal-light">Minimal Light (Clean Apple/Notion Vibe)</option>
-                <option value="dark-glass">Midnight Glass (Sleek Dark Mode)</option>
-                <option value="sunset-gradient">Sunset Gradient (Soft & Modern)</option>
-                <option value="pastel-sage">Soft Sage (Calm & Rounded)</option>
-              </optgroup>
-              <optgroup label="⚡ Neo-Brutalist (Bold Borders)">
-                <option value="#e6e9e3">Brutalist Concrete Grey</option>
-                <option value="#fef08a">Brutalist Cyber Yellow</option>
-                <option value="#a5f3fc">Brutalist Electric Cyan</option>
-                <option value="#fbcfe8">Brutalist Pink</option>
-                <option value="#bbf7d0">Brutalist Acid Green</option>
-              </optgroup>
-            </select>
+          <!-- Color Customizer -->
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+            <h3 class="font-semibold text-slate-800">Design Your Page</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Background</label>
+                <input type="color" id="custom-bg" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Text Color</label>
+                <input type="color" id="custom-text" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button Color</label>
+                <input type="color" id="custom-btn" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Button Text</label>
+                <input type="color" id="custom-btn-text" class="w-full h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0">
+              </div>
+            </div>
           </div>
 
-          <button type="submit" id="save-profile-btn" class="bg-white border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all mt-4">
-            Save Profile
+          <button type="submit" id="save-profile-btn" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-sm">
+            Save Profile & Design
           </button>
         </form>
       </div>
 
-      <!-- 2. Add Multiple Links Form -->
-      <div class="border-4 border-black p-6 bg-cyan-200 shadow-[4px_4px_0_0_#000] mb-8">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-          <h2 class="text-2xl font-bold uppercase">2. Add Links</h2>
-          <button type="button" id="add-row-btn" class="bg-lime-400 border-4 border-black font-black uppercase px-4 py-1.5 text-sm shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
-            + Add Another Link Row
+      <!-- 2. Add Links -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <h2 class="text-xl font-bold flex items-center gap-2">
+            <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span> 
+            Add Links
+          </h2>
+          <button type="button" id="add-row-btn" class="px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-medium rounded-lg text-sm transition-colors flex items-center gap-1">
+            <span>+</span> Add Row
           </button>
         </div>
 
         <form id="add-link-form" class="space-y-4">
           <div id="link-rows-container" class="space-y-4">
-            <div class="link-row bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_#000] grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="link-row bg-slate-50 border border-slate-200 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block font-bold mb-1 uppercase text-xs">Link Title (e.g., My YouTube)</label>
-                <input type="text" name="title" placeholder="YouTube Channel" class="link-title w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
+                <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label>
+                <input type="text" name="title" placeholder="My YouTube" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required>
               </div>
               <div>
-                <label class="block font-bold mb-1 uppercase text-xs">URL (e.g., https://youtube.com/...)</label>
-                <input type="url" name="url" placeholder="https://youtube.com/..." class="link-url w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
+                <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label>
+                <input type="url" name="url" placeholder="https://..." class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required>
               </div>
             </div>
           </div>
-
-          <button type="submit" id="submit-link-btn" class="bg-yellow-400 border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all mt-4">
-            Save All Links
+          <button type="submit" id="submit-link-btn" class="w-full sm:w-auto px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-colors shadow-sm">
+            Save Links
           </button>
         </form>
       </div>
 
       <!-- 3. Manage Links -->
-      <div class="border-4 border-black p-6 bg-white shadow-[4px_4px_0_0_#000] mb-8">
-        <h2 class="text-2xl font-bold uppercase mb-4">3. Manage Your Links</h2>
-        <div id="links-container" class="space-y-4">
-          <p class="font-medium text-gray-600">Loading your links...</p>
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span> 
+          Manage Links
+        </h2>
+        <div id="links-container" class="space-y-3">
+          <p class="text-slate-500 animate-pulse">Loading your links...</p>
         </div>
       </div>
     </div>
 
     <script>
       import { supabase } from '../lib/supabase';
-
       let currentUserId = '';
 
       async function checkUser() {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          window.location.href = '/login';
-          return;
-        }
+        if (!user) return window.location.href = '/login';
         currentUserId = user.id; 
         loadProfile();
         loadLinks();
@@ -130,17 +141,17 @@
       document.getElementById('add-row-btn')?.addEventListener('click', () => {
         const container = document.getElementById('link-rows-container');
         const row = document.createElement('div');
-        row.className = 'link-row bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_#000] relative';
+        row.className = 'link-row bg-slate-50 border border-slate-200 rounded-xl p-4 relative';
         row.innerHTML = `
-          <button type="button" class="remove-row-btn absolute -top-3 -right-3 bg-red-400 border-4 border-black font-black px-2 py-0.5 text-xs shadow-[2px_2px_0_0_#000]">✕</button>
+          <button type="button" class="remove-row-btn absolute -top-2 -right-2 bg-red-100 hover:bg-red-200 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block font-bold mb-1 uppercase text-xs">Link Title</label>
-              <input type="text" name="title" placeholder="Instagram / GitHub / Portfolio" class="link-title w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
+              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label>
+              <input type="text" name="title" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required>
             </div>
             <div>
-              <label class="block font-bold mb-1 uppercase text-xs">URL</label>
-              <input type="url" name="url" placeholder="https://..." class="link-url w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
+              <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label>
+              <input type="url" name="url" class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required>
             </div>
           </div>
         `;
@@ -150,9 +161,7 @@
 
       async function loadProfile() {
         const res = await fetch('/api/get-profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: currentUserId })
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUserId })
         });
         if (!res.ok) return;
         const profile = await res.json();
@@ -161,7 +170,11 @@
           (document.getElementById('display-name') as HTMLInputElement).value = profile.displayName || '';
           (document.getElementById('bio') as HTMLTextAreaElement).value = profile.bio || '';
           (document.getElementById('avatar-url') as HTMLInputElement).value = profile.avatarUrl || '';
-          (document.getElementById('theme-bg') as HTMLSelectElement).value = profile.themeBackground || 'minimal-light';
+          
+          (document.getElementById('custom-bg') as HTMLInputElement).value = profile.customBg || '#f8fafc';
+          (document.getElementById('custom-text') as HTMLInputElement).value = profile.customText || '#0f172a';
+          (document.getElementById('custom-btn') as HTMLInputElement).value = profile.customButton || '#3b82f6';
+          (document.getElementById('custom-btn-text') as HTMLInputElement).value = profile.customButtonText || '#ffffff';
           
           const viewBtn = document.getElementById('view-page-btn') as HTMLAnchorElement;
           viewBtn.href = `/${profile.username}`;
@@ -173,38 +186,32 @@
         const container = document.getElementById('links-container');
         try {
           const res = await fetch('/api/get-links', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: currentUserId })
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUserId })
           });
-          
-          if (!res.ok) throw new Error('Failed to fetch');
           const links = await res.json();
           
           if (links.length === 0) {
-            container!.innerHTML = '<p class="font-bold border-2 border-black p-2 bg-gray-100">No links added yet.</p>';
+            container!.innerHTML = '<p class="text-slate-500 p-4 bg-slate-50 rounded-xl border border-slate-200">No links added yet.</p>';
             return;
           }
 
           container!.innerHTML = links.map((link: any) => `
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0_0_#000]">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50 border border-slate-200 p-4 rounded-xl">
               <div class="overflow-hidden">
-                <p class="font-black uppercase text-lg">${link.title}</p>
-                <a href="${link.url}" target="_blank" class="text-sm underline font-medium hover:text-blue-600 break-all">${link.url}</a>
+                <p class="font-bold text-slate-800">${link.title}</p>
+                <a href="${link.url}" target="_blank" class="text-sm text-indigo-600 hover:underline break-all">${link.url}</a>
               </div>
               <div class="flex gap-2 shrink-0">
-                <button onclick="editLink(${link.id}, '${link.title.replace(/'/g, "\\'")}', '${link.url.replace(/'/g, "\\'")}')" class="bg-yellow-300 border-4 border-black font-black uppercase px-4 py-2 hover:translate-x-1 hover:translate-y-1 transition-all">
+                <button onclick="editLink(${link.id}, '${link.title.replace(/'/g, "\\'")}', '${link.url.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors">
                   Edit
                 </button>
-                <button onclick="deleteLink(${link.id})" class="bg-red-400 border-4 border-black font-black uppercase px-4 py-2 hover:translate-x-1 hover:translate-y-1 transition-all">
+                <button onclick="deleteLink(${link.id})" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-lg transition-colors">
                   Delete
                 </button>
               </div>
             </div>
           `).join('');
-        } catch (err) {
-          container!.innerHTML = '<p class="font-bold border-2 border-red-600 p-2 bg-red-100 text-red-600">Make sure get-links.ts is created in src/pages/api/</p>';
-        }
+        } catch (err) { }
       }
 
       (window as any).editLink = async (linkId: number, oldTitle: string, oldUrl: string) => {
@@ -212,106 +219,68 @@
         if (!title) return;
         const url = prompt('Update Link URL:', oldUrl);
         if (!url) return;
-
         await fetch('/api/update-link', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: currentUserId, linkId, title, url })
-        });
-        loadLinks();
-      };
-
-      // 3. Edit & Delete Link Functions
-      (window as any).editLink = async (linkId: number, oldTitle: string, oldUrl: string) => {
-        const title = prompt('Update Link Title:', oldTitle);
-        if (!title) return;
-        const url = prompt('Update Link URL:', oldUrl);
-        if (!url) return;
-
-        await fetch('/api/update-link', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: currentUserId, linkId, title, url })
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUserId, linkId, title, url })
         });
         loadLinks();
       };
 
       (window as any).deleteLink = async (linkId: number) => {
         if (!confirm('Are you sure you want to delete this link?')) return;
-        
         await fetch('/api/delete-link', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: currentUserId, linkId })
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUserId, linkId })
         });
-        
         loadLinks();
       };
 
-      // 4. Handle Profile Save/Update (REPLACE THIS PART BELOW)
       document.getElementById('profile-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const username = (document.getElementById('username') as HTMLInputElement).value;
-        const displayName = (document.getElementById('display-name') as HTMLInputElement).value;
-        const bio = (document.getElementById('bio') as HTMLTextAreaElement).value;
-        const avatarUrl = (document.getElementById('avatar-url') as HTMLInputElement).value;
-        const themeBackground = (document.getElementById('theme-bg') as HTMLSelectElement).value;
+        const body = {
+          id: currentUserId,
+          username: (document.getElementById('username') as HTMLInputElement).value,
+          displayName: (document.getElementById('display-name') as HTMLInputElement).value,
+          bio: (document.getElementById('bio') as HTMLTextAreaElement).value,
+          avatarUrl: (document.getElementById('avatar-url') as HTMLInputElement).value,
+          customBg: (document.getElementById('custom-bg') as HTMLInputElement).value,
+          customText: (document.getElementById('custom-text') as HTMLInputElement).value,
+          customButton: (document.getElementById('custom-btn') as HTMLInputElement).value,
+          customButtonText: (document.getElementById('custom-btn-text') as HTMLInputElement).value,
+        };
         
         const res = await fetch('/api/save-profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: currentUserId, username, displayName, bio, avatarUrl, themeBackground })
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
         });
-
         if (res.ok) {
-          alert('Profile updated!');
+          alert('Profile & Design Saved!');
           loadProfile();
         } else {
-          const errData = await res.json().catch(() => ({}));
-          alert('Error saving profile: ' + (errData.error || 'Unknown error'));
+          alert('Error saving.');
         }
       });
+
       document.getElementById('add-link-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const rows = document.querySelectorAll('.link-row');
         const submitBtn = document.getElementById('submit-link-btn') as HTMLButtonElement;
-        submitBtn.textContent = 'Saving...';
-        submitBtn.disabled = true;
+        submitBtn.textContent = 'Saving...'; submitBtn.disabled = true;
 
-        let allOk = true;
         for (const row of rows) {
-          const title = (row.querySelector('.link-title') as HTMLInputElement).value;
-          const url = (row.querySelector('.link-url') as HTMLInputElement).value;
-
-          const res = await fetch('/api/add-link', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: currentUserId, title, url })
+          await fetch('/api/add-link', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              userId: currentUserId, 
+              title: (row.querySelector('.link-title') as HTMLInputElement).value, 
+              url: (row.querySelector('.link-url') as HTMLInputElement).value 
+            })
           });
-          if (!res.ok) allOk = false;
         }
-
-        submitBtn.textContent = 'Save All Links';
-        submitBtn.disabled = false;
-
-        if (allOk) {
-          const container = document.getElementById('link-rows-container')!;
-          container.innerHTML = `
-            <div class="link-row bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_#000] grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block font-bold mb-1 uppercase text-xs">Link Title (e.g., My YouTube)</label>
-                <input type="text" name="title" placeholder="YouTube Channel" class="link-title w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
-              </div>
-              <div>
-                <label class="block font-bold mb-1 uppercase text-xs">URL (e.g., https://youtube.com/...)</label>
-                <input type="url" name="url" placeholder="https://youtube.com/..." class="link-url w-full border-4 border-black p-2 focus:outline-none focus:bg-yellow-100" required>
-              </div>
-            </div>
-          `;
-          loadLinks();
-        } else {
-          alert('Error saving links. Did you save your profile first?');
-        }
+        submitBtn.textContent = 'Save Links'; submitBtn.disabled = false;
+        document.getElementById('link-rows-container')!.innerHTML = `
+          <div class="link-row bg-slate-50 border border-slate-200 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Link Title</label><input type="text" name="title" class="link-title w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required></div>
+            <div><label class="block text-xs font-semibold text-slate-500 uppercase mb-1">URL</label><input type="url" name="url" class="link-url w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" required></div>
+          </div>`;
+        loadLinks();
       });
 
       document.getElementById('logout-btn')?.addEventListener('click', async () => {
